@@ -1,0 +1,11 @@
+[package]
+name = "pearl"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+logos = "0.14.2"
+
+[lib]
+name = "plib"
+path = "lib/mod.rs"
