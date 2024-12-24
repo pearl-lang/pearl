@@ -1,0 +1,22 @@
+name: GCC Static Analysis
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Run GCC Static Analysis
+        run: |
+            make lib
+            gcc -Wall -Wextra -fanalyzer -o program src/*.c

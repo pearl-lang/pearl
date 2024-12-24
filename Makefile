@@ -6,11 +6,13 @@ OUTDIR := build
 PARAMS := --help
 OUT := $(OUTDIR)/pearl
 
-all: build install
+all: lib build install
+
+lib:
+	ln -vfs ../$(LIBDIR) $(SRCDIR)
 
 build:
 	mkdir -p $(OUTDIR)
-	ln -vfs ../$(LIBDIR) $(SRCDIR)
 	$(COMPLR) $(SRCDIR)/pearl.c -o $(OUT)
 
 install:
@@ -21,4 +23,4 @@ clean:
 run:
 	$(OUT) $(PARAMS)
 
-.PHONY: all build install clean
+.PHONY: all lib build install clean
