@@ -1,26 +1,17 @@
-PREFIX := /usr
-LIBDIR := lib
-SRCDIR := src
-COMPLR := gcc
-OUTDIR := build
-PARAMS := --help
-OUT := $(OUTDIR)/pearl
+,PREFIX := .
+SUB := src lib
 
-all: lib build install
+all: $(SUB)
 
-lib:
-	ln -vfs ../$(LIBDIR) $(SRCDIR)
+build: $(SUB)
 
-build:
-	mkdir -p $(OUTDIR)
-	$(COMPLR) $(SRCDIR)/pearl.c -o $(OUT)
+clean: $(SUB)
 
-install:
+$(SUB):
+ifeq ($(MAKECMDGOALS),)
+	$(MAKE) -C $@
+else
+	$(MAKE) $(MAKECMDGOALS) -C $@
+endif
 
-clean:
-	rm -rvf $(OUTDIR)
-
-run:
-	$(OUT) $(PARAMS)
-
-.PHONY: all lib build install clean
+.PHONY: all build clean $(SUB)
