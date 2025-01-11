@@ -9,7 +9,10 @@ all: $(BIN)
 %: %.c
 	$(CC) $(CFLAGS) $(PAR) $@ $<
 
+analyzer:
+	gcc -Wall -Wextra -fanalyzer -o program *.c
+
 clean:
-	rm -vf $(BIN)
+	rm -vf $(BIN) program
 
 .PHONY: all clean

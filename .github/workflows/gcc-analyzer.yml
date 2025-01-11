@@ -18,5 +18,4 @@ jobs:
 
       - name: Run GCC Static Analysis
         run: |
-            make lib
-            gcc -Wall -Wextra -fanalyzer -o program src/*.c
+            make analyzer
