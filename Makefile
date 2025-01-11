@@ -1,5 +1,10 @@
 PREFIX := .
-SUB := src lib
+SUB := lib src
+
+all: $(SUB)
+build: $(SUB)
+clean: $(SUB)
+analyzer: $(SUB)
 
 $(SUB):
 ifeq ($(MAKECMDGOALS),)
@@ -8,9 +13,5 @@ else
 	$(MAKE) $(MAKECMDGOALS) -C $@
 endif
 
-all: $(SUB)
-build: $(SUB)
-clean: $(SUB)
-analyzer: $(SUB)
 
 .PHONY: all build clean analyzer $(SUB)

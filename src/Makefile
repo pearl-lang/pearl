@@ -7,12 +7,14 @@ BIN := $(patsubst %.c,%,$(SRC))
 all: $(BIN)
 
 %: %.c
+	ln -vfs ../lib
 	$(CC) $(CFLAGS) $(PAR) $@ $<
 
 analyzer:
+	ln -vfs ../lib
 	gcc -Wall -Wextra -fanalyzer -o program *.c
 
 clean:
-	rm -vf $(BIN) program
+	rm -vf $(BIN) program lib
 
 .PHONY: all clean
