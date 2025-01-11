@@ -18,4 +18,5 @@ jobs:
 
       - name: Run GCC Static Analysis
         run: |
+            make
             make analyzer
