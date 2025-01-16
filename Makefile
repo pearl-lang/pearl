@@ -14,4 +14,4 @@ else
 endif
 
 
-.PHONY: all build clean analyzer $(SUB)
+.PHONY: all build clean analyzer setup unsetup $(SUB)

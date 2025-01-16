@@ -1,11 +1,7 @@
 LEX := flex
 SRC := $(wildcard *.l)
-OUT := $(patsubst %.l,%.c,$(SRC))
 
-all: $(OUT)
-
-%.c: %.l
-	$(LEX) -o $@ $<
+all:
 
 analyzer:
 	gcc -Wall -Wextra -fanalyzer -o program *.c
