@@ -8,3 +8,10 @@ The Pearl language source code.
 - Lexer
 - Parser
 - Data types and structures
+
+# Build.
+```sh
+mkdir build && cd build
+cmake ..
+make all
+```

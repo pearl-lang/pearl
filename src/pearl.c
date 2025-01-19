@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "lib/statics.h"
+#include "statics.h"
+
 /*
 	About this file, 
 	Interaction with other functions will be assumed.
