@@ -1,13 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "statics.h"
+#include "static.h"
+#include "opt.h"
 
-/*
-	About this file, 
-	Interaction with other functions will be assumed.
-*/
+int main(int argc, char **argv) {
+	int status = STATUS;
+	const int argn = argc;
 
-int main() {
-	int status = STATUS;	
+	for (; argc--; argv++)
+		printf("[%d] %s\n", (argn - argc), *argv);
+
 	return status;
 }

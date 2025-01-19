@@ -1,1 +1,0 @@
-#define STATUS 0
