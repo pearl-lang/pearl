@@ -1,12 +1,28 @@
+set(CMAKE_C_COMPILER "gcc")
+set(MAIN_SRC "src/pearl.c")
+
 cmake_minimum_required(VERSION 3.0)
 project(Pearl C)
 
-file(GLOB LIB_SOURCES lib/*.c)
+# Dependencies.
+find_package(FLEX)
+find_package(BISON)
 
-add_library(lib_objects OBJECT ${LIB_SOURCES})
+flex_target(LEXER src/lexer.l src/lexer.c)
+bison_target(PARSER src/parser.y src/parser.c)
+add_flex_bison_dependency(LEXER PARSER)
 
-add_executable(pearl src/pearl.c)
+include_directories("include")
 
-target_link_libraries(pearl PRIVATE $<TARGET_OBJECTS:lib_objects>)
+# General C elements.
+file(GLOB SRC_C_FILES src/*.c)
+list(REMOVE_ITEM SRC_C_FILES MAIN_SRC)
 
-target_include_directories(pearl PRIVATE lib src)
+add_library(SRC_C_FILES OBJECT "${SRC_C_FILES}")
+add_executable(
+    pearl
+    "${MAIN_SRC}"
+)
+
+target_include_directories(pearl PRIVATE "include" src)
+

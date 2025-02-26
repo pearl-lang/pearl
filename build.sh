@@ -7,7 +7,7 @@
 set -e
 
 case "${1}" in
-	"build")
+	"build"|"b")
 		(
 			{ 
 				[ -d "build" ] || mkdir "build"
@@ -17,7 +17,7 @@ case "${1}" in
 			}
 		) || exit 1
 	;;
-	"clean")
+	"clean"|"c")
 		rm -vrf "build"
 	;;
 	*)

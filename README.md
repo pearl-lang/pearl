@@ -3,6 +3,7 @@ The Pearl language source code.
 
 ## TODO:
 [Compiler Design](https://github.com/orgs/pearl-lang/projects/1)
+IMPORTANTE: Remove cmake and write working shell build scripts!!
 
 - Lexer Design
 - Lexer
