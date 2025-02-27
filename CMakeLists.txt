@@ -1,5 +1,8 @@
 set(CMAKE_C_COMPILER "gcc")
 set(MAIN_SRC "src/pearl.c")
+if(CMAKE_BUILD_TYPE STREQUAL "Release")
+    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -static -static-libgcc ")
+endif()
 
 cmake_minimum_required(VERSION 3.0)
 project(Pearl C)
@@ -16,15 +19,27 @@ include_directories("include")
 
 # General C elements.
 file(GLOB SRC_C_FILES src/*.c)
-list(REMOVE_ITEM SRC_C_FILES MAIN_SRC)
+# list(REMOVE_ITEM SRC_C_FILES MAIN_SRC)
 
 add_library(SRC_C_FILES OBJECT "${SRC_C_FILES}")
 add_executable(
     pearl
-    "${MAIN_SRC}"
+    "${SRC_C_FILES}"
     "${CMAKE_CURRENT_BINARY_DIR}/lexer.c"
     "${CMAKE_CURRENT_BINARY_DIR}/parser.c"
 )
 
-target_include_directories(pearl PRIVATE "include" "src" "${CMAKE_CURRENT_BINARY_DIR}")
+target_link_libraries(pearl readline)
 
+if(CMAKE_BUILD_TYPE STREQUAL "Release")
+    target_link_libraries(pearl tinfo)
+
+    add_custom_command(
+        TARGET pearl
+        POST_BUILD
+        COMMAND strip --strip-all $<TARGET_FILE:pearl>
+        COMMENT "Stripping binary..."
+    )
+endif()
+
+target_include_directories(pearl PRIVATE "include" "src" "${CMAKE_CURRENT_BINARY_DIR}")
