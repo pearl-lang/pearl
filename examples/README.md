@@ -2,5 +2,6 @@
 
 that files isn't a unit testing or something, just an examples.
 
-[var](var.txt)
-[hello](hello.txt)
+## Example List.
+- [variable](var.txt)
+- [hello](hello.txt)
