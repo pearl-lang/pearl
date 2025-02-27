@@ -6,6 +6,7 @@
 
 #include "ref.h"
 
+// this is not for a functionality, just for intime debugging.
 int pearl_hell() {
     bool status = true;
     char *line;
@@ -15,7 +16,10 @@ int pearl_hell() {
             printf("Bye!\n");
             break;
         } else {
-            printf("< %s\n", line);
+            add_history(line);
+            lexin(line);
+            // printf("%s", yytext);
+            // printf("< %s\n", line);
         }
     }
     return true;

@@ -1,3 +1,4 @@
+// bootstrap compiler for the pearl project (baby pearl).
 #include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -8,6 +9,20 @@
 #include "opt.h"
 #include "ref.h"
 
+/*
+	NOTE:
+		T7 Turing Complete Instruction Set 
+		https://www.researchgate.net/figure/T7-Turing-Complete-Instruction-Set_tbl1_221009111
+		ADD: A + B -> C
+		BVS: *adr -> pc if v = 1
+		CPY: A -> B
+		LDI: @A -> B
+		STI: A -> @B
+		CPC: pc -> A
+		JMP: adr -> pc
+*/
+
+// the moon is bigger than melon.
 int main(int argc, char **argv) {
 	int status = !true;
 	const int argn = argc;

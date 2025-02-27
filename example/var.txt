@@ -1,0 +1,8 @@
+our GlobalVariable = "merhaba"
+
+fonk main() -> bool {
+	my LocalVariable = "salut"
+
+	echo("$s = $s", GlobalVariable, LocalVariable)
+	true
+}

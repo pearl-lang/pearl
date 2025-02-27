@@ -1,0 +1,4 @@
+fonk main() -> bool {
+	echo("hello world!")
+	true
+}
