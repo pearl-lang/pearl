@@ -1,6 +1,5 @@
 enum SetOpt {
 	Help,
-	Shell,
 	Compile,
 	Version,
 };

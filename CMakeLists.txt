@@ -1,15 +1,15 @@
 set(CMAKE_C_COMPILER "gcc")
 set(MAIN_SRC "src/pearl.c")
 if(CMAKE_BUILD_TYPE STREQUAL "Release")
-    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -static -static-libgcc ")
+    set(CMAKE_EXE_LINKER_FLAGS "-static -static-libgcc")
 endif()
 
 cmake_minimum_required(VERSION 3.0)
 project(Pearl C)
 
 # Dependencies.
-find_package(FLEX)
-find_package(BISON)
+find_package(FLEX REQUIRED)
+find_package(BISON REQUIRED)
 
 flex_target(LEXER "src/lexer.l" "${CMAKE_CURRENT_BINARY_DIR}/lexer.c" DEFINES_FILE "${CMAKE_CURRENT_BINARY_DIR}/lexer.h")
 bison_target(PARSER "src/parser.y" "${CMAKE_CURRENT_BINARY_DIR}/parser.c" DEFINES_FILE "${CMAKE_CURRENT_BINARY_DIR}/parser.h")
@@ -19,7 +19,6 @@ include_directories("include")
 
 # General C elements.
 file(GLOB SRC_C_FILES src/*.c)
-# list(REMOVE_ITEM SRC_C_FILES MAIN_SRC)
 
 add_library(SRC_C_FILES OBJECT "${SRC_C_FILES}")
 add_executable(
@@ -29,11 +28,7 @@ add_executable(
     "${CMAKE_CURRENT_BINARY_DIR}/parser.c"
 )
 
-target_link_libraries(pearl readline)
-
 if(CMAKE_BUILD_TYPE STREQUAL "Release")
-    target_link_libraries(pearl tinfo)
-
     add_custom_command(
         TARGET pearl
         POST_BUILD

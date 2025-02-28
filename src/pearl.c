@@ -36,19 +36,15 @@ int main(int argc, char **argv) {
 
 	// -h // helper text.
 	// -c <file> // compile.
-	// -s // interactive (s)hell.
 	// -V // Verbose.
 	// -v // version.
-	while ((flag = getopt(argc, argv, "hc:sVv") ) != -1) {
+	while ((flag = getopt(argc, argv, "hc:Vv") ) != -1) {
 		switch (flag) {
 			case 'h':
 				break;
 			case 'c':
 				setopt.curropt = Compile;
 				setopt.file = optarg;
-				break;
-			case 's':
-				setopt.curropt = Shell;
 				break;
 			case 'V':
 				setopt.verbose = true;
@@ -75,12 +71,8 @@ int main(int argc, char **argv) {
 				printf("Usage of %s: %s -[FLAG] <PAR..>:\n"
 						"\t%s -h: This helper text (also it's default).\n"
 						"\t%s -c <file>: Compile a single file.\n"
-						"\t%s -s: Interactive shell.\n"
 						"\t%s -V: Set Verbose value to true (it's false by default).\n"
-						"\t%s -v: Print current version of %s.\n", PROJECT_NAME, PROJECT_NAME, argv[0], argv[0], argv[0], argv[0], argv[0], PROJECT_NAME);
-				break;
-			case Shell:
-				pearl_hell();
+						"\t%s -v: Print current version of %s.\n", PROJECT_NAME, PROJECT_NAME, argv[0], argv[0], argv[0], argv[0], PROJECT_NAME);
 				break;
 			case Compile:
 				break;

@@ -8,16 +8,15 @@
 %token INTEGER
 %token FLOAT
 %token FUNCTION
+%token SCOPEON
+%token SCOPEOFF
+%token QUOTE
+%token LBRACKET
+%token RBRACKET
+%token STRING
 
 %%
-expr: EOL { printf("end of line: %d\n", $1); }
-    ;
-expr: INTEGER { printf("integer: %d\n", $1); }
-    ;
-expr: FLOAT { printf("bloat: %d\n", $1); }
-    ;
-expr: FUNCTION { printf("function: %d\n", $1); }
-    ;
+program: FUNCTION STRING { printf("function called\n"); }
 %%
 
 void yyerror(const char *s) {

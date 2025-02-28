@@ -4,14 +4,21 @@
 %}
 
 %%
-"fonk" { return FUNCTION; }
-[0-9]+ { return INTEGER; }
-[[:digit:]]*(\.[[:digit:]]+)?  { return FLOAT; }
-\n  { return EOL; }
-. { return false; }
+[ \t\n\r]+   ;  // Whitespace karakterlerini yoksay
+"fonk"  { return FUNCTION; }
+"{"     { return SCOPEON; }
+"}"     { return SCOPEOFF; }
+"\""    { return QUOTE; }
+"("     { return LBRACKET; }
+")"     { return RBRACKET; }
+[0-9]+  { return INTEGER; }
+\n      { return EOL; }
+\"([^\"]*)\" { return STRING; }
+[[:digit:]]*(\.[[:digit:]]+)? { return FLOAT; }
+.       { }
 %%
 
-void lexin(char *input) {
+void lexline(char *input) {
     YY_BUFFER_STATE buf = yy_scan_string(input);
     yyparse();
     yy_delete_buffer(buf);
