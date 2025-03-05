@@ -4,7 +4,7 @@
 %}
 
 %%
-[ \t\n\r]+   ;  // Whitespace karakterlerini yoksay
+[ \t\n\r]+   ;
 "fonk"  { return FUNCTION; }
 "{"     { return SCOPEON; }
 "}"     { return SCOPEOFF; }
@@ -17,12 +17,6 @@
 [[:digit:]]*(\.[[:digit:]]+)? { return FLOAT; }
 .       { }
 %%
-
-void lexline(char *input) {
-    YY_BUFFER_STATE buf = yy_scan_string(input);
-    yyparse();
-    yy_delete_buffer(buf);
-}
 
 int yywrap() {
     return true;
