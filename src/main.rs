@@ -11,7 +11,7 @@ fn main() {
 
 	if let Ok(lines) = read_lines(args.file) {
 		for l in lines.map_while(Result::ok) {
-			println!("{l}");
+			println!("{}", l);
 		}
 	}
     // println!("{}", args.file);
