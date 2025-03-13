@@ -1,0 +1,10 @@
+require colour
+
+#[main]
+fonk mother() -> bool {
+	my hello = "hello world"
+
+	print("${green}${hello}${reset}")
+
+	true
+}
