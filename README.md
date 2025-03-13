@@ -1,6 +1,6 @@
 # pearl compiler bootstrap.
+![image](https://github.com/user-attachments/assets/8ac122bf-9724-4633-9b88-88559706a3b3)
 
-![bison]()
 bootstrap compiler for could be compile it self the pearl project
 
 ## using
