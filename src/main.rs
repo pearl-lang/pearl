@@ -14,5 +14,4 @@ fn main() {
 			println!("{}", l);
 		}
 	}
-    // println!("{}", args.file);
 }
