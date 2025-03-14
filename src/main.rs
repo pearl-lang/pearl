@@ -4,14 +4,21 @@ mod lexer;
 mod utils;
 
 use clap::Parser;
+use logos::Logos;
 use utils::{ args::Args, read_lines::read_lines };
+use lexer::lexer::Token;
 
 fn main() {
 	let args = Args::parse();
 
 	if let Ok(lines) = read_lines(args.file) {
-		for l in lines.map_while(Result::ok) {
-			println!("{}", l);
+		for line in lines.map_while(Result::ok) {
+			for result in Token::lexer(&line) {
+			    match result {
+			        Ok(token) => println!("{:#?}", token),
+			        Err(e) => panic!("some error occurred: {:?}", e),
+			    }
+			}
 		}
 	}
 }

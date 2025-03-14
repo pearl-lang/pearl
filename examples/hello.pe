@@ -1,7 +1,7 @@
-require colour
+require colour::{green, reset}
 
 #[main]
-fonk mother() -> bool {
+fun mother() -> bool {
 	my hello = "hello world"
 
 	print("${green}${hello}${reset}")

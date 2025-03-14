@@ -1,0 +1,5 @@
+require fun
+if elif else
+while case for in
+my our static
+# $ {} () [] // ' " <- -> < > =< >= == = ; + - * ,

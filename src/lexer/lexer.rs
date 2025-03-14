@@ -3,7 +3,7 @@ use logos::Logos;
 /*
 	Tokens:
 		require
-		fonk
+		fun
 
 		if
 		elif // bir olayı yok düz else if ama yengenin adı elifse diye.
@@ -16,6 +16,7 @@ use logos::Logos;
 
 		my
 		our
+		static
 
 		#
 		$
@@ -26,6 +27,7 @@ use logos::Logos;
 		[
 		]
 		//
+		'
 		"
 		->
 		<-
@@ -44,10 +46,10 @@ use logos::Logos;
 
 #[derive(Logos, Debug, PartialEq)]
 #[logos(skip r"[ \t\n\f]+")]
-enum Token {
+pub enum Token {
 	#[token("require")]
 	Require,
-	#[token("fonk")]
+	#[token("fun")]
 	Function,
 
 	#[token("if")]
@@ -67,9 +69,58 @@ enum Token {
 	In,
 
 	#[token("my")]
-	My,
+	LocalVariable,
 	#[token("our")]
-	Our,
+	GlobalVariable,
+	#[token("static")] // unmutable
+	ReadOnly,
 
-	
+	#[token("#")]
+	Sharp,
+	#[token("$")] // <- 🤑
+	Money,
+	#[token("{")]
+	LeftCurlyBracet,
+	#[token("}")]
+	RightCurlyBracet,
+	#[token("(")]
+	LeftBracet,
+	#[token(")")]
+	RightBracet,
+	#[token("[")]
+	LeftSquareBracet,
+	#[token("]")]
+	RightSquareBracet,
+	#[token("//")]
+	Comment,
+	#[token("'")]
+	Quote,
+	#[token("\"")]
+	DoubleQuote,
+	#[token("<-")]
+	LeftArrow,
+	#[token("->")]
+	RightArrow,
+	#[token(">")]
+	GreaterThan,
+	#[token("<")]
+	SmallerThan,
+	#[token(">=")]
+	EqualOrGreaterThan,
+	#[token("=<")]
+	EqualOrSmallerThan,
+	#[token("==")]
+	Equal,
+	#[token("=")]
+	Assign,
+	#[token(";")]
+	Semicolon,
+	#[token("+")]
+	Plus,
+	#[token("-")]
+	Moins,
+	#[token("*")]
+	Multiplication,
+	#[token(",")]
+	Comma
 }
