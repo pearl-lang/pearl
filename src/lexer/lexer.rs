@@ -3,6 +3,7 @@ use logos::Logos;
 /*
 	Tokens:
 		require
+		ebpf
 		fun
 
 		if
@@ -49,6 +50,8 @@ use logos::Logos;
 pub enum Token {
 	#[token("require")]
 	Require,
+	#[token("ebpf")]
+	Ebpf,
 	#[token("fun")]
 	Function,
 
@@ -122,5 +125,8 @@ pub enum Token {
 	#[token("*")]
 	Multiplication,
 	#[token(",")]
-	Comma
+	Comma,
+
+	#[regex("[a-zA-Z]+")]
+	Text,
 }

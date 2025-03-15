@@ -1,11 +1,11 @@
+mod compiler;
 mod codegen;
 mod parser;
 mod lexer;
-mod utils;
 
 use clap::Parser;
 use logos::Logos;
-use utils::{ args::Args, read_lines::read_lines };
+use compiler::{ args::Args, read_lines::read_lines };
 use lexer::lexer::Token;
 
 fn main() {
