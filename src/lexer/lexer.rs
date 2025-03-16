@@ -2,52 +2,16 @@ use logos::Logos;
 
 /*
 	Tokens:
-		require
-		ebpf
-		fun
-
-		if
-		elif // bir olayı yok düz else if ama yengenin adı elifse diye.
-		else
-
-		while
-		case
-		for
-		in
-
-		my
-		our
-		static
-
-		#
-		$
-		{
-		}
-		(
-		)
-		[
-		]
-		//
-		'
-		"
-		->
-		<-
-		>
-		<
-		>=
-		=<
-		==
-		=
-		;
-		+
-		-
-		*
-		,
+		require ebpf fun
+		if elif else
+		while case for in
+		my our static
+		# :: { } ( ) [ ] // ' " -> <- > < >= =< == = ; + - * / , .
 */
 
 #[derive(Logos, Debug, PartialEq)]
 #[logos(skip r"[ \t\n\f]+")]
-pub enum Token {
+pub enum Token<'a> {
 	#[token("require")]
 	Require,
 	#[token("ebpf")]
@@ -75,13 +39,13 @@ pub enum Token {
 	LocalVariable,
 	#[token("our")]
 	GlobalVariable,
-	#[token("static")] // unmutable
+	#[token("static")] // immutable
 	ReadOnly,
 
 	#[token("#")]
 	Sharp,
-	#[token("$")] // <- 🤑
-	Money,
+	#[token("::")]
+	Separate,
 	#[token("{")]
 	LeftCurlyBracet,
 	#[token("}")]
@@ -123,10 +87,22 @@ pub enum Token {
 	#[token("-")]
 	Moins,
 	#[token("*")]
-	Multiplication,
+	Asterix,
+	#[token("/")]
+	Slash,
+	#[token("&")]
+	And,
 	#[token(",")]
 	Comma,
+	#[token(".")]
+	Dot,
 
-	#[regex("[a-zA-Z]+")]
-	Text,
+	#[regex(r"[0-9]+")]
+	Int,
+	#[regex(r"[0-9]+\.[0-9]+")]
+	Float,
+	#[regex(r"[a-zA-Z][a-zA-Z0-9]*")]
+	Text(&'a str),
+	#[regex(r#""([^"\\]|\\.)*""#, priority = 1)]
+	String(&'a str),
 }

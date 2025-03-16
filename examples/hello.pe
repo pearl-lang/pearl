@@ -1,7 +1,6 @@
 require colour::{green, reset}
 
-#[main]
-fun mother() -> bool {
+fun main() -> bool {
 	my hello = "hello world"
 
 	print("${green}${hello}${reset}")
