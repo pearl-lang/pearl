@@ -5,4 +5,17 @@ edition = "2024"
 
 [dependencies]
 clap = { version = "4.5.32", features = ["derive"] }
-logos = "0.15.0"
+
+[profile.dev]
+opt-level = 0
+overflow-checks = false
+
+[profile.release]
+opt-level = 3
+overflow-checks = true
+
+[profile.dev.package."*"]
+opt-level = "z"
+debug-assertions = false
+overflow-checks = false
+debug = false

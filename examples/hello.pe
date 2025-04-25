@@ -1,9 +1,0 @@
-require colour::{green, reset}
-
-fun main() -> bool {
-	my hello = "hello world"
-
-	print("${green}${hello}${reset}")
-
-	true
-}

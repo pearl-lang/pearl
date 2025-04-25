@@ -1,23 +1,27 @@
+// Sub files.
 mod compiler;
 mod codegen;
 mod parser;
 mod lexer;
 
-use clap::Parser;
-use logos::Logos;
-use compiler::args::Args;
-use lexer::lexer::Token;
-use std::fs::read_to_string;
+// Required things.
+use clap::{CommandFactory,  Parser };
+use std::error::Error;
 
-fn main() {
+// Args.
+#[derive(Parser, Debug)]
+#[command(version, about = "pearlc", long_about = "Pearl language bootstrap compiler.")]
+struct Args {
+    file: Vec<String>,
+}
+
+fn main() -> Result<(), Box<dyn Error>> {
 	let args = Args::parse();
 
-	let ctx = read_to_string(args.file).expect("Should have been able to read the file");
-	for res in Token::lexer(&ctx) {
-		match res {
-			Ok(token) => println!("{:#?}", token),
-			// Err(e) => eprintln!("some error occurred {:?}", e)
-			Err(e) => panic!("some error occurred {:?}", e)
-		}
-	}		
+	if args.file.len() <= 0 {
+		err!(format!("Need's file(s) as argument FILE.. please type '{} --help' for more information.", Args::command()));
+	}
+
+	Ok(())
 }
+

@@ -1,3 +1,0 @@
-ebpf fun hello() {
-	printk("hello")
-}
