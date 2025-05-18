@@ -103,13 +103,19 @@ pub struct Token {
 
 // Tokenizing.
 impl Token {
-	pub fn new(&mut self, ctx: &str) -> Vec<Self> {
-		vec![Self {
-			token: Tokens::Number(String::from("1")),
-			length: 1,
-			pozition: (1, 1),
-			reserved: false,
-			nesting: None,
-		}]
+	pub fn tokenize(&mut self, ctx: &str) -> Vec<Self> {
+		let mut tokens: Vec<Self> = vec![];
+
+		tokens.extend(vec![
+		    Self {
+		        token: Tokens::Number(String::from("1")),
+		        length: 1,
+		        pozition: (1, 1),
+		        reserved: false,
+		        nesting: None,
+		    }
+		]);
+
+		tokens
 	}
 }
