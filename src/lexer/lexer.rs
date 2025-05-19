@@ -134,6 +134,7 @@ pub fn tokenize(ctx: &str, line_no: u32) -> Vec<Token> {
 
 // Tokenizing.
 impl Token {
+
 	// Tokenize from given file.
 	pub fn tokenize_file(filename: &str) -> Vec<Self> {
 		let mut line_no: u32 = 0;
@@ -150,11 +151,11 @@ impl Token {
 
 		// tokens.extend(vec![
 		//     Self {
-		//         token: Tokens::Number(String::from("1")),
-		//         length: 1,
-		// 		position: (0, 0),
-		// 		reserved: false,
-		//         nesting: None,
+		//      	token: Tokens::Number(String::from("1")),
+		//      	length: 1,
+		// 			position: (0, 0),
+		// 			reserved: None,
+		//      	nesting: None,
 		//     }
 		// ]);
 
