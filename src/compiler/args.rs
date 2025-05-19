@@ -61,7 +61,7 @@ impl Options {
 						},
 						ref WarnLevel => {
 							if let Ok(n) = i.parse::<u8>() { 
-								if n >= 0 && n <= 9 { warnlvl = n };
+								if n <= 9 { warnlvl = n };
 							}	
 						},
 					}

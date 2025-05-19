@@ -99,7 +99,7 @@ pub struct Token {
 	token: Tokens,
 	length: u16,
 	position: (u32, u32),
-	reserved: bool,
+	reserved: Option<bool>,
 	nesting: Option<Nesting>
 }
 
@@ -117,7 +117,7 @@ pub fn tokenize(ctx: &str, line_no: u32) -> Vec<Token> {
 					token: Tokens::EndOfLine,
 					length: 1,
 					position: (line_no, count),
-					reserved: false,
+					reserved: None,
 					nesting: None
 				};
 				println!("{}", "New Line");
