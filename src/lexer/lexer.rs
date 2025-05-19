@@ -1,3 +1,4 @@
+use crate::compiler::read_lines::read_lines;
 /*
 	Tokens:
 		require(7) ebpf(4) fun(3)
@@ -103,8 +104,16 @@ pub struct Token {
 
 // Tokenizing.
 impl Token {
-	pub fn tokenize(&mut self, ctx: &str) -> Vec<Self> {
+	pub fn tokenize_file(filename: &str) -> Vec<Self> {
 		let mut tokens: Vec<Self> = vec![];
+
+		if let Ok(lines) = read_lines(&filename) {
+		    for line in lines {
+		        if let Ok(l) = line {
+		            println!("{}", l); // <- lexing start's here.
+		        }
+		    }
+		}
 
 		tokens.extend(vec![
 		    Self {

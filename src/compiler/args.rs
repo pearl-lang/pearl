@@ -13,10 +13,10 @@ enum Operation {
 }
 
 pub struct Options {
-	operation: Operation,
-	source: String,
-	output: String,
-	warnlvl: u8,
+	pub operation: Operation,
+	pub source: String,
+	pub output: String,
+	pub warnlvl: u8,
 	// optimization: u8 // disable for now.
 }
 
@@ -31,13 +31,14 @@ impl Options {
 
 		for i in ctx.iter().skip(1) {
 			match i {
+				sub if sub.starts_with("--") => {
+					println!("Long: {}", i)	
+				},
+
 				sub if sub.starts_with("-") => {
 					println!("Short: {}", i);
 				},
 
-				sub if sub.starts_with("--") => {
-					println!("Long: {}", i)	
-				},
 
 				_ => {
 					match current {
