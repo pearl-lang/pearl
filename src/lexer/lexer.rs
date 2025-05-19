@@ -1,4 +1,3 @@
-use crate::compiler::read_lines::read_lines;
 /*
 	Tokens:
 		require(7) ebpf(4) fun(3)
@@ -8,6 +7,7 @@ use crate::compiler::read_lines::read_lines;
 		int(3) str(3) double(6) bool(4) uint(4)
 		# :: { } ( ) [ ] // -> <- > < >= =< == = ; + - * / \ , .
 */
+use crate::compiler::read_lines::read_lines;
 
 // Reserved words that we use.
 pub enum Word {
@@ -34,6 +34,7 @@ pub enum Word {
 
 // Reserved characters that we need to use.
 pub enum Chars {
+	HashTag,			// #
 	DoubleTwoDot,		// ::
 	LeftCurlyBracket,	// {
 	RightCurlyBracket,	// }
@@ -96,10 +97,20 @@ pub struct Nesting {
 // Token structure.
 pub struct Token {
 	token: Tokens,
-	length: i32,
-	pozition: (i64, i64),
+	length: u16,
 	reserved: bool,
 	nesting: Option<Nesting>
+}
+
+// TODO: this should be next_token and position will be included.
+pub fn tokenize(ctx: &str) -> Vec<Token> {
+	let mut tokens: Vec<Token> = vec![];
+
+	for ch in ctx.chars() {
+		println!("{} == {}", ch, ch as u8);	// DEBUG
+	}
+
+	tokens
 }
 
 // Tokenizing.
@@ -110,7 +121,7 @@ impl Token {
 		if let Ok(lines) = read_lines(&filename) {
 		    for line in lines {
 		        if let Ok(l) = line {
-		            println!("{}", l); // <- lexing start's here.
+		            tokens.extend(tokenize(&l));
 		        }
 		    }
 		}
@@ -119,12 +130,14 @@ impl Token {
 		    Self {
 		        token: Tokens::Number(String::from("1")),
 		        length: 1,
-		        pozition: (1, 1),
 		        reserved: false,
 		        nesting: None,
 		    }
 		]);
 
+		// println!("{}", tokens.len()); // size of the tokens vector.
+
 		tokens
 	}
 }
+

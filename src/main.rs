@@ -13,10 +13,16 @@ fn main() -> Result<(), Box<dyn Error>> {
 	let opt: Options = Options::new(env::args().collect());
 
 	if Path::new(&opt.source).exists() {
-		// kontroller yapılmalı, dosya uzantısı, dosya boyutu vb..
+		// TODO: add tests for lexer/lexer.rs, check controls like is file end's with..?
 		let tokens: Vec<Token> = Token::tokenize_file(&opt.source);
 	} else {
-		err!(format!("File: {}, doesn't exists.", &opt.source));
+		let ferr = if opt.source.is_empty() {
+			format!("None")
+		} else {
+			opt.source
+		};
+
+		err!(format!("File: {}, doesn't exists.", ferr));
 	}
 
 	Ok(())
