@@ -9,10 +9,6 @@ use compiler::args::Options;
 
 fn main() -> Result<(), Box<dyn Error>> {
 	let opt: Options = Options::new(env::args().collect());
-	/*
-		HERE:
-			argument parsing starts here.
-			program [OPTIONS] <file..>	
-	*/
+
 	Ok(())
 }

@@ -1,5 +1,12 @@
 // argument parsing.
-pub enum Operation {
+enum Current {
+	Operation,
+	Source,
+	Output,
+	WarnLevel
+}
+
+enum Operation {
 	Codegen, // Just drop .asm file.
 	Compile, // Compile (just drop .o file).
 	Build // Compile and link.
@@ -15,11 +22,62 @@ pub struct Options {
 
 impl Options {
 	pub fn new(ctx: Vec<String>) -> Self {
+		let mut current: Current = Current::Source;
+
+		let mut operation: Operation = Operation::Codegen;
+		let mut source: String = String::new();
+		let mut output: String = String::new();
+		let mut warnlvl: u8 = 0;
+
+		for i in ctx.iter().skip(1) {
+			match i {
+				sub if sub.starts_with("-") => {
+					println!("Short: {}", i);
+				},
+
+				sub if sub.starts_with("--") => {
+					println!("Long: {}", i)	
+				},
+
+				_ => {
+					match current {
+						ref Source => {
+							source = i.clone();
+						},
+
+						ref Operation => {
+							match i.to_ascii_lowercase().as_str() {
+								"compile" => {
+									operation = Operation::Compile;
+								},
+								"build" => {
+									operation = Operation::Build;	
+								},
+								_ => {
+									operation = Operation::Codegen;	
+								}
+							}
+						},
+
+						ref Output => {
+							output = i.clone();							
+						},
+
+						ref WarnLevel => {
+							if let Ok(n) = i.parse::<u8>() { 
+								if n >= 0 && n <= 9 { warnlvl = n };
+							}	
+						},
+					}
+				} 
+			}
+		}
+
 		Self {
-			operation: Operation::Codegen,
-			source: String::from(""),
-			output: String::from(""),
-			warnlvl: 0
+			operation: operation,
+			source: source,
+			output: output,
+			warnlvl: warnlvl
 		}
 	}
 }
