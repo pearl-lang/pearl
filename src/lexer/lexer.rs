@@ -42,7 +42,7 @@ pub enum Chars {
 	RightSquareBracket,	// ]
 	LeftBracket,		// (
 	RightBracket,		// )
-	Comment,			// //...EndOfline
+	Comment,			// //...EndOfLine
 	MultiCommentOpen,	// /*
 	MultiCommentClose,	// */
 	LeftArrow,			// <-
@@ -98,16 +98,35 @@ pub struct Nesting {
 pub struct Token {
 	token: Tokens,
 	length: u16,
+	position: (u32, u32),
 	reserved: bool,
 	nesting: Option<Nesting>
 }
 
 // TODO: this should be next_token and position will be included.
-pub fn tokenize(ctx: &str) -> Vec<Token> {
+pub fn tokenize(ctx: &str, line_no: u32) -> Vec<Token> {
+	let mut count: u32 = 0; 
 	let mut tokens: Vec<Token> = vec![];
 
+	/* HERE'S IMPORTANTE, DON'T FORGET TO SEARCH HERE */
 	for ch in ctx.chars() {
-		println!("{} == {}", ch, ch as u8);	// DEBUG
+		count += 1;
+		match ch as u8 {
+			10 => {
+				Token {
+					token: Tokens::EndOfLine,
+					length: 1,
+					position: (line_no, count),
+					reserved: false,
+					nesting: None
+				};
+				println!("{}", "New Line");
+			},
+
+			_ => {
+				println!("{} == {}", ch, ch as u8);	// DEBUG
+			}
+		}
 	}
 
 	tokens
@@ -115,27 +134,31 @@ pub fn tokenize(ctx: &str) -> Vec<Token> {
 
 // Tokenizing.
 impl Token {
+	// Tokenize from given file.
 	pub fn tokenize_file(filename: &str) -> Vec<Self> {
+		let mut line_no: u32 = 0;
 		let mut tokens: Vec<Self> = vec![];
-
+		
 		if let Ok(lines) = read_lines(&filename) {
 		    for line in lines {
-		        if let Ok(l) = line {
-		            tokens.extend(tokenize(&l));
+				if let Ok(l) = line {
+					line_no += 1;
+					tokens.extend(tokenize(format!("{}\n", &l).as_str(), line_no));
 		        }
 		    }
 		}
 
-		tokens.extend(vec![
-		    Self {
-		        token: Tokens::Number(String::from("1")),
-		        length: 1,
-		        reserved: false,
-		        nesting: None,
-		    }
-		]);
+		// tokens.extend(vec![
+		//     Self {
+		//         token: Tokens::Number(String::from("1")),
+		//         length: 1,
+		// 		position: (0, 0),
+		// 		reserved: false,
+		//         nesting: None,
+		//     }
+		// ]);
 
-		// println!("{}", tokens.len()); // size of the tokens vector.
+		println!("{}", tokens.len()); // size of the tokens vector.
 
 		tokens
 	}

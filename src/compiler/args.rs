@@ -1,12 +1,12 @@
 // argument parsing.
-enum Current {
+pub enum Current {
 	Operation,
 	Source,
 	Output,
 	WarnLevel
 }
 
-enum Operation {
+pub enum Operation {
 	Codegen, // Just drop .asm file.
 	Compile, // Compile (just drop .o file).
 	Build // Compile and link.
@@ -20,6 +20,7 @@ pub struct Options {
 	// optimization: u8 // disable for now.
 }
 
+#[allow(non_snake_case, unreachable_patterns, unused_variables)] // damn clippy.
 impl Options {
 	pub fn new(ctx: Vec<String>) -> Self {
 		let mut current: Current = Current::Source;
@@ -34,18 +35,14 @@ impl Options {
 				sub if sub.starts_with("--") => {
 					println!("Long: {}", i)	
 				},
-
 				sub if sub.starts_with("-") => {
 					println!("Short: {}", i);
 				},
-
-
 				_ => {
 					match current {
 						ref Source => {
 							source = i.clone();
 						},
-
 						ref Operation => {
 							match i.to_ascii_lowercase().as_str() {
 								"compile" => {
@@ -59,11 +56,9 @@ impl Options {
 								}
 							}
 						},
-
 						ref Output => {
 							output = i.clone();							
 						},
-
 						ref WarnLevel => {
 							if let Ok(n) = i.parse::<u8>() { 
 								if n >= 0 && n <= 9 { warnlvl = n };
