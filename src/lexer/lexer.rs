@@ -7,7 +7,6 @@
 		int(3) str(3) double(6) bool(4) uint(4)
 		# :: { } ( ) [ ] // -> <- > < >= =< == = ; + - * / \ , .
 */
-use crate::compiler::read_lines::read_lines;
 
 // Reserved words that we use.
 pub enum Word {
@@ -66,7 +65,7 @@ pub enum Chars {
 pub enum CharType {
 	Expression,
 	Statement,
-	Operation,	
+	Operation	
 }
 
 pub struct Char {
@@ -91,7 +90,7 @@ pub enum NestingType {
 
 pub struct Nesting {
 	ntype: NestingType,
-	level: i64,	
+	level: i64	
 }
 
 // Token structure.
@@ -103,50 +102,14 @@ pub struct Token {
 	nesting: Option<Nesting>
 }
 
-// TODO: this should be next_token and position will be included.
-pub fn tokenize(ctx: &str, line_no: u32) -> Vec<Token> {
-	let mut count: u32 = 0; 
-	let mut tokens: Vec<Token> = vec![];
-
-	/* HERE'S IMPORTANTE, DON'T FORGET TO SEARCH HERE */
-	for ch in ctx.chars() {
-		count += 1;
-		match ch as u8 {
-			10 => {
-				Token {
-					token: Tokens::EndOfLine,
-					length: 1,
-					position: (line_no, count),
-					reserved: None,
-					nesting: None
-				};
-				println!("{}", "New Line");
-			},
-
-			_ => {
-				println!("{} == {}", ch, ch as u8);	// DEBUG
-			}
-		}
-	}
-
-	tokens
-}
-
 // Tokenizing.
 impl Token {
-
-	// Tokenize from given file.
-	pub fn tokenize_file(filename: &str) -> Vec<Self> {
-		let mut line_no: u32 = 0;
+	// Tokenize from given context.
+	pub fn tokenize(ctx: &str) -> Vec<Self> {
 		let mut tokens: Vec<Self> = vec![];
-		
-		if let Ok(lines) = read_lines(&filename) {
-		    for line in lines {
-				if let Ok(l) = line {
-					line_no += 1;
-					tokens.extend(tokenize(format!("{}\n", &l).as_str(), line_no));
-		        }
-		    }
+
+		for (n, c) in ctx.chars().enumerate() {
+			println!("{}: {} = {}", n, c, c as u8);
 		}
 
 		// tokens.extend(vec![

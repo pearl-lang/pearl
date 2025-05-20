@@ -14,7 +14,7 @@ fn main() -> Result<(), Box<dyn Error>> {
 
 	if Path::new(&opt.source).exists() {
 		// TODO: add tests for lexer/lexer.rs, check controls like is file end's with..?
-		let tokens: Vec<Token> = Token::tokenize_file(&opt.source);
+		let tokens: Vec<Token> = Token::tokenize(&opt.source);
 	} else {
 		let ferr = if opt.source.is_empty() {
 			format!("None")
