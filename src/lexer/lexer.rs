@@ -1,4 +1,7 @@
 /*
+	TODO: 
+		- add tests here.
+
 	Tokens:
 		require(7) ebpf(4) fun(3)
 		if(2) elif(4) else(4)
@@ -104,7 +107,6 @@ pub struct Token {
 
 // Tokenizing.
 impl Token {
-	// Tokenize from given context.
 	pub fn tokenize(ctx: &str) -> Vec<Self> {
 		let mut tokens: Vec<Self> = vec![];
 
@@ -122,7 +124,7 @@ impl Token {
 		//     }
 		// ]);
 
-		println!("{}", tokens.len()); // size of the tokens vector.
+		// println!("{}", tokens.len()); // size of the tokens vector.
 
 		tokens
 	}
