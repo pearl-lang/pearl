@@ -1,0 +1,18 @@
+[package]
+name = "bootstrap"
+version = "0.1.0"
+edition = "2024"
+
+[profile.dev]
+opt-level = 0
+overflow-checks = false
+
+[profile.release]
+opt-level = 3
+overflow-checks = true
+
+[profile.dev.package."*"]
+opt-level = "z"
+debug-assertions = false
+overflow-checks = false
+debug = false
