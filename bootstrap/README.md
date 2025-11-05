@@ -1,5 +1,5 @@
 # stage0
-Bootstrapped compiler for pearl language.
+Bootstrapped compiler for [pearl](https://github.com/pearl-lang/pearl) language.
 
 ## Navigator
 ```
@@ -13,33 +13,28 @@ Bootstrapped compiler for pearl language.
 │       └── main.rs
 ├── LICENSE
 └── README.md
-
-2 directories, 7 files
 ```
+
 # Toolchain
-If you're using an windows system(ms-nt, msvc) you need to edit the rust-toolchains file like remove the `x86_64-unknown-linux-gnu` from toolchain's target also you can make samething in linux distributions.
+For the target list in bootstrap/rust-toolchain.toml set only the platform you need.
 
-```
-File navigation:
-└── bootstrap
-    └── rust-toolchain.toml
-
-# For Linux distributions.
-...
-targets = ["x86_64-unknown-linux-gnu"]
-...
-
-# For windows systems.
-...
+- For Windows (MSVC):
+```toml
+[toolchain]
+# ...
 targets = ["x86_64-pc-windows-msvc"]
-...
 ```
 
-# Requirements
-- rustup
+- For Linux:
+```toml
+[toolchain]
+# ...
+targets = ["x86_64-unknown-linux-gnu"]
+```
 
-# Installation
+Remove the other target(s) from the array so the file contains only the appropriate target for your OS. After editing, run:
+
 ```sh
-rustup show
+rustup update
 cargo build --release
 ```
