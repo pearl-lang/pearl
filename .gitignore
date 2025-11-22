@@ -1,0 +1,8 @@
+build/
+pearl
+
+*.exe
+*.elf
+*.dll
+*.so
+*.o
