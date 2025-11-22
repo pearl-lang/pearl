@@ -5,7 +5,7 @@
 
 void parse_args(int argc, char **argv) {
     if (argc <= 1) {
-        pearl_error("No arguments provided.");
+        pearl_log(LOG_ERROR, "No arguments provided.");
         exit(1);
     }
 

@@ -2,14 +2,20 @@
 #include <stdlib.h>
 #include "log.h"
 
-void pearl_info(const char *message) {
-    printf("(INFO): %s\n", message);
-}
-
-void pearl_error(const char *message) {
-    fprintf(stderr, "(ERROR): %s\n", message);
-}
-
-void pearl_warning(const char *message) {
-    printf("(WARNING): %s\n", message);
+void pearl_log(int level, const char *message) {
+    const char *level_str;
+    switch (level) {
+        case LOG_INFO:
+            level_str = "INFO";
+            break;
+        case LOG_WARNING:
+            level_str = "WARNING";
+            break;
+        case LOG_ERROR:
+            level_str = "ERROR";
+            break;
+        default:
+            level_str = "UNKNOWN";
+    }
+    printf("(%s): %s\n", level_str, message);
 }
