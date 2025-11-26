@@ -13,4 +13,7 @@ typedef struct {
     int backend; // 0 = LLVM
 } pearl_config_t;
 
+void help();
+void short_help();
+
 #endif // PEARL_H

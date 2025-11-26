@@ -2,7 +2,7 @@
 
 ![image](https://github.com/user-attachments/assets/8ac122bf-9724-4633-9b88-88559706a3b3)
 
-# Getting started with the pearl.
+# Getting started with pearl language.
 
 ## Build from source.
 
@@ -23,7 +23,7 @@ make
 or if you want to make it manually like a man.
 
 ```
-[! -d "build" ] && mkdir "build"
+[ ! -d "build" ] && mkdir "build"
 cd "build"
 cmake ..
 make

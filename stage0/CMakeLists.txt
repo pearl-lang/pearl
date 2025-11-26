@@ -3,4 +3,4 @@ file(GLOB SOURCES src/*.c)
 
 add_executable(pearl ${SOURCES})
 
-target_include_directories(pearl PRIVATE lib)
+target_include_directories(pearl PRIVATE include)

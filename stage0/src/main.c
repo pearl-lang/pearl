@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include "platform.h"
 #include "pearl.h"
 #include "cli.h"
 

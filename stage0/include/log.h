@@ -6,4 +6,6 @@
 #define LOG_ERROR   3
 
 void pearl_log(int level, const char *message);
+char* msg_heap(const char *fmt, ...);
+
 #endif // LOG_H
