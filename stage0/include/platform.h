@@ -1,7 +1,7 @@
 #ifndef PLATFORM_H
 #define PLATFORM_H
 
-#include <unistd.h>
+#include <stdio.h>
 
 typedef enum {
     PLATFORM_MSNT,
@@ -25,8 +25,10 @@ typedef struct {
 
 // Detect current platform
 #if defined(_WIN32) || defined(_WIN64)
+#include <windows.h>
     #define PLATFORM_MSNT 1
 #elif defined(__linux__)
+    #include <unistd.h>
     #define PLATFORM_LINUX 1
 #elif defined(__APPLE__) && defined(__MACH__)
     #define PLATFORM_DARWIN 1
