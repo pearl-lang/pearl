@@ -1,6 +1,8 @@
 #ifndef PLATFORM_H
 #define PLATFORM_H
 
+#include <unistd.h>
+
 typedef enum {
     PLATFORM_MSNT,
     PLATFORM_LINUX,

@@ -6,6 +6,7 @@
 
 // Backend types
 #define BACKEND_LLVM 0
+#define BACKEND_PIRE 1 // Pearl Intermediate Representation
 
 typedef struct {
     const char *source_file;
