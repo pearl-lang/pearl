@@ -4,7 +4,7 @@
 
 # Getting started with pearl language
 
-## Get pearl using [gece](https://github.com/pearl-lang/gece) (General Engine for Compilation & Environment)
+## Manage pearl versions with [gece](https://github.com/pearl-lang/gece)
 Let's use gece to compile and run pearl programs easily, manage dependencies and pearl versions.
 
 ## Build from source
