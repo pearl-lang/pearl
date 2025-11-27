@@ -10,10 +10,11 @@ Let's use gece to compile and run pearl programs easily, manage dependencies and
 ## Build from source
 
 ### Requirements
+- Git
 - CMake 3.15+
 - A C/C++ compiler (GCC, Clang, MSVC, etc.)
-- Git
 - Make (for Linux/macOS) or Ninja (for Windows)
+- Visual Studio 18 (for Windows)
 
 Get the source.
 ```sh
