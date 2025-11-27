@@ -8,6 +8,15 @@
 #define BACKEND_LLVM 0
 #define BACKEND_PIRE 1 // Pearl Intermediate Representation
 
+// Verbosity levels
+#define PEARL_VERBOSITY_SILENT  0
+#define PEARL_VERBOSITY_ERROR   1
+#define PEARL_VERBOSITY_WARNING 2
+#define PEARL_VERBOSITY_INFO    3
+#define PEARL_VERBOSITY_DEBUG   4
+
+extern int pearl_verbosity_level;
+
 typedef struct {
     const char *source_file;
     const char *output_file;
@@ -16,5 +25,6 @@ typedef struct {
 
 void help();
 void short_help();
+void pearl_set_verbosity();
 
 #endif // PEARL_H

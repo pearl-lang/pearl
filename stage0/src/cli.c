@@ -15,7 +15,7 @@ void parse_args(int argc, char **argv) {
 
     for (int i = 1; i < argc; i++) {
         if (argv[i][0] == '-' && (argv[i][1] != '\0' && argv[i][1] != '-')) {
-            for (int j = 1; argv[i][j] != '\0'; j++) {
+            for (size_t j = 1; argv[i][j] != '\0'; j++) {
                 switch (argv[i][j]) {
                     case 'h':
                         short_help();
@@ -25,6 +25,11 @@ void parse_args(int argc, char **argv) {
                         printf("%s\n", PEARL_VERSION);
                         exit(0);
                         break; // Will not reach here.
+                    case 'v':
+                        if (j < strlen(argv[i])) {
+                            pearl_set_verbosity();
+                        }
+                        break;
                     default:
                         pearl_log(LOG_WARNING, msg_heap("  Unknown option: %c", argv[i][j]));
                 }
