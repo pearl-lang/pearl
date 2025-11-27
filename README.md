@@ -46,8 +46,8 @@ cmake -G "Ninja" ..
 ninja
 ```
 
-# Contributing.
+# Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
-# [License](./LICENSE).
+# [License](./LICENSE)
 [MIT](https://choosealicense.com/licenses/mit/)
