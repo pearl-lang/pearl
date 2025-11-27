@@ -7,9 +7,9 @@
 #include "cli.h"
 #include "log.h"
 
-void parse_args(int argc, char **argv) {
+void parse_args(int argc, char **argv, pearl_config_t *config) {
     if (argc <= 1) {
-        pearl_log(LOG_ERROR, "No arguments provided.");
+        printf("~> No arguments provided. Use -h or --help for usage information.\n");
         exit(1);
     }
 
@@ -35,8 +35,6 @@ void parse_args(int argc, char **argv) {
                 }
             }
         } else if ((argv[i][0] == '-' && argv[i][1] == '-') && argv[i][2] != '\0') {
-            bool has_value = false;
-
             if (strcmp(argv[i], "--help") == 0) {
                 help();
                 exit(0);
@@ -45,16 +43,36 @@ void parse_args(int argc, char **argv) {
                 printf("%s v%s - %s on %s\n", "Pearl", PEARL_VERSION, get_platform(), get_architecture());
                 exit(0);
                 break; // Will not reach here.
-            }
-
-            if (has_value) {
-                while (i + 1 < argc && argv[i + 1][0] != '-') {
-                    pearl_log(LOG_INFO, msg_heap("  Option Value: %s", argv[i + 1]));
-                    i++;
+            } else if (strcmp(argv[i], "--output") == 0) {
+                if (i + 1 < argc) {
+                    config->output_file = argv[i + 1];
+                    i++; // Skip next argument as it's the output file
+                } else {
+                    if (pearl_verbosity_level >= PEARL_VERBOSITY_ERROR)
+                        pearl_log(LOG_ERROR, msg_heap("  --output requires a file name argument"));
                 }
+            } else if (strcmp(argv[i], "--backend") == 0) {
+                if (i + 1 < argc) {
+                    if (strcmp(argv[i + 1], "llvm") == 0) {
+                        config->backend = BACKEND_LLVM;
+                    } else if (strcmp(argv[i + 1], "pire") == 0) {
+                        config->backend = BACKEND_PIRE;
+                    } else {
+                        if (pearl_verbosity_level >= PEARL_VERBOSITY_ERROR)
+                            pearl_log(LOG_ERROR, msg_heap("  Unknown backend: %s", argv[i + 1]));
+                    }
+                    i++; // Skip next argument as it's the backend type
+                } else {
+                    if (pearl_verbosity_level >= PEARL_VERBOSITY_ERROR)
+                        pearl_log(LOG_ERROR, msg_heap("  --backend requires a backend type argument"));
+                }
+            } else {
+                if (pearl_verbosity_level >= PEARL_VERBOSITY_INFO)
+                    pearl_log(LOG_WARNING, msg_heap("Unknown option: %s", argv[i]));
             }
         } else {
-            pearl_log(LOG_INFO, msg_heap("Positional argument: %s", argv[i]));
+            if (pearl_verbosity_level >= PEARL_VERBOSITY_INFO)
+                pearl_log(LOG_INFO, msg_heap("Positional argument: %s", argv[i]));
         }
     }
 }
