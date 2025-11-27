@@ -1,6 +1,10 @@
-add_compile_options(-Wall -Wextra -O2)
 file(GLOB SOURCES src/*.c)
 
-add_executable(pearl ${SOURCES})
+if(MSVC)
+    add_compile_options(/EHsc /D_CRT_SECURE_NO_WARNINGS)
+else()
+    add_compile_options(-Wall -Wextra -O2)
+endif()
 
+add_executable(pearl ${SOURCES})
 target_include_directories(pearl PRIVATE include)

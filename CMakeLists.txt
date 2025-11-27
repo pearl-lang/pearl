@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.10)
-project(pearl)
+project(Pearl C)
 
 add_subdirectory(stage0)
 # add_subdirectory(stage1)
