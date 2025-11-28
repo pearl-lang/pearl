@@ -22,7 +22,7 @@ extern int pearl_verbosity_level;
 typedef struct {
     vector_t   *source_file;
     const char *output_file;
-    int backend; // 0 = LLVM
+    int         backend; // 0 = LLVM
 } pearl_config_t;
 
 void help();

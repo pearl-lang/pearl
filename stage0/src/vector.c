@@ -26,6 +26,7 @@ bool vector_push_back(vector_t *vec, const void *element) {
         vec->data = new_data;
         vec->capacity = new_capacity;
     }
+
     memcpy((char*)vec->data + vec->count * vec->element_size, element, vec->element_size);
     vec->count++;
     return true;

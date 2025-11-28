@@ -6,10 +6,10 @@
 #include <stdbool.h>
 
 typedef struct {
-    void  *data;
-    size_t element_size;
-    size_t count;
-    size_t capacity;
+    void   *data;
+    size_t  element_size;
+    size_t  count;
+    size_t  capacity;
 } vector_t;
 
 void vector_init(vector_t *vec, size_t element_size);
