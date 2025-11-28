@@ -13,9 +13,15 @@ void parse_args(int argc, char **argv, pearl_config_t *config) {
         exit(1);
     }
 
+    // NOTE: Short arguments can be combined like -vho output.pearl
+    // But it doesn't designed for handle multiple parameters. If you want to use it with
+    // multiple parameters, use long arguments like --output output.pearl --backend llvm
+    // or one by one like -o output.pearl -b llvm. 
     for (int i = 1; i < argc; i++) {
+        bool shift_i = false;
         if (argv[i][0] == '-' && (argv[i][1] != '\0' && argv[i][1] != '-')) {
-            for (size_t j = 1; argv[i][j] != '\0'; j++) {
+            bool flag_handled = false;
+            for (size_t j = 1; (argv[i][j] != '\0'); j++) {
                 switch (argv[i][j]) {
                     case 'h':
                         short_help();
@@ -25,15 +31,46 @@ void parse_args(int argc, char **argv, pearl_config_t *config) {
                         printf("%s\n", PEARL_VERSION);
                         exit(0);
                         break; // Will not reach here.
+                    case 'o':
+                        if (i + 1 < argc && argv[i + 1][0] != '-' && !flag_handled) {
+                            config->output_file = argv[i + 1];
+                            shift_i = true;
+                            flag_handled = true;
+                        } else {
+                            printf("Pearl Error: \n");
+                            printf("  -o requires a file name argument\n");
+                            exit(1);
+                        }
+                        break;
+                    case 'b':
+                        if (i + 1 < argc && argv[i + 1][0] != '-' && !flag_handled) {
+                            if (strcmp(argv[i + 1], "llvm") == 0) {
+                                config->backend = BACKEND_LLVM;
+                            } else if (strcmp(argv[i + 1], "pire") == 0) {
+                                config->backend = BACKEND_PIRE;
+                            } else {
+                                if (pearl_verbosity_level >= PEARL_VERBOSITY_ERROR)
+                                    pearl_log(LOG_ERROR, msg_heap("  Unknown backend: %s", argv[i + 1]));
+                            }
+                            shift_i = true;
+                            flag_handled = true;
+                        } else {
+                            printf("Pearl Error: \n");
+                            printf("  -b requires a backend type argument\n");
+                            exit(1);
+                        }
+                        break;
                     case 'v':
                         if (j < strlen(argv[i])) {
                             pearl_set_verbosity();
                         }
                         break;
                     default:
-                        pearl_log(LOG_WARNING, msg_heap("  Unknown option: %c", argv[i][j]));
+                        if (pearl_verbosity_level >= PEARL_VERBOSITY_INFO)
+                            pearl_log(LOG_WARNING, msg_heap("  Unknown option: %c", argv[i][j]));
                 }
             }
+            if (shift_i) i++; // increase i if we have consumed the next argument 
         } else if ((argv[i][0] == '-' && argv[i][1] == '-') && argv[i][2] != '\0') {
             if (strcmp(argv[i], "--help") == 0) {
                 help();
@@ -48,8 +85,9 @@ void parse_args(int argc, char **argv, pearl_config_t *config) {
                     config->output_file = argv[i + 1];
                     i++; // Skip next argument as it's the output file
                 } else {
-                    if (pearl_verbosity_level >= PEARL_VERBOSITY_ERROR)
-                        pearl_log(LOG_ERROR, msg_heap("  --output requires a file name argument"));
+                    printf("Pearl Error: \n");
+                    printf("  --output requires a file name argument\n");
+                    exit(1);
                 }
             } else if (strcmp(argv[i], "--backend") == 0) {
                 if (i + 1 < argc) {
@@ -63,8 +101,9 @@ void parse_args(int argc, char **argv, pearl_config_t *config) {
                     }
                     i++; // Skip next argument as it's the backend type
                 } else {
-                    if (pearl_verbosity_level >= PEARL_VERBOSITY_ERROR)
-                        pearl_log(LOG_ERROR, msg_heap("  --backend requires a backend type argument"));
+                    printf("Pearl Error: \n");
+                    printf("  --backend requires a backend type argument\n");
+                    exit(1);
                 }
             } else {
                 if (pearl_verbosity_level >= PEARL_VERBOSITY_INFO)
