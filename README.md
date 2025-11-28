@@ -32,6 +32,7 @@ cmake --build build
 
 #### For Windows
 ```ps1
+& "C:\Program Files\Microsoft Visual Studio\18\Community\Common7\Tools\Launch-VsDevShell.ps1" # Enable VS Development Environment
 cmake -B build -G "Visual Studio 18 2022" # or you can prefer whatever you use, for exp: -G "Ninja"
 cmake --build build
 ```

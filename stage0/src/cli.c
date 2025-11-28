@@ -3,13 +3,14 @@
 #include <string.h>
 #include <stdbool.h>
 #include "platform.h"
+#include "vector.h"
 #include "pearl.h"
 #include "cli.h"
 #include "log.h"
 
 void parse_args(int argc, char **argv, pearl_config_t *config) {
     if (argc <= 1) {
-        printf("~> No arguments provided. Use -h or --help for usage information.\n");
+        printf("No arguments provided. Use -h or --help for usage information.\n");
         exit(1);
     }
 
@@ -132,6 +133,11 @@ void parse_args(int argc, char **argv, pearl_config_t *config) {
         } else {
             if (pearl_verbosity_level >= PEARL_VERBOSITY_INFO)
                 pearl_log(LOG_INFO, msg_heap("Positional argument: %s", argv[i]));
+            const char *source_file = argv[i];
+            if (!vector_push_back(config->source_file, &source_file)) {
+                fprintf(stderr, "Failed to add source file to the list.");
+                exit(1);
+            }
         }
     }
 }

@@ -1,6 +1,8 @@
 #ifndef PEARL_H
 #define PEARL_H
 
+#include "vector.h"
+
 // General definitions
 #define PEARL_VERSION "0.1.0"
 
@@ -18,7 +20,7 @@
 extern int pearl_verbosity_level;
 
 typedef struct {
-    const char *source_file;
+    vector_t   *source_file;
     const char *output_file;
     int backend; // 0 = LLVM
 } pearl_config_t;
