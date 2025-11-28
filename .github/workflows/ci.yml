@@ -9,5 +9,9 @@ jobs:
       - name: Checkout Project
         uses: actions/checkout@v4.2.2
 
+      - name: Setup Bats and bats libs
+        id: setup-bats
+        uses: bats-core/bats-action@3.0.1
+
       - name: Build Project
         uses: threeal/cmake-action@v2.1.0
