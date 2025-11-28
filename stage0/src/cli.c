@@ -19,8 +19,10 @@ void parse_args(int argc, char **argv, pearl_config_t *config) {
     // or one by one like -o output.pearl -b llvm. 
     for (int i = 1; i < argc; i++) {
         bool shift_i = false;
+
         if (argv[i][0] == '-' && (argv[i][1] != '\0' && argv[i][1] != '-')) {
             bool flag_handled = false;
+
             for (size_t j = 1; (argv[i][j] != '\0'); j++) {
                 switch (argv[i][j]) {
                     case 'h':
@@ -28,7 +30,7 @@ void parse_args(int argc, char **argv, pearl_config_t *config) {
                         exit(0);
                         break; // Will not reach here.
                     case 'V':
-                        printf("%s\n", PEARL_VERSION);
+                        printf("%s v%s - %s on %s\n", "Pearl", PEARL_VERSION, get_platform(), get_architecture());
                         exit(0);
                         break; // Will not reach here.
                     case 'o':
@@ -77,11 +79,29 @@ void parse_args(int argc, char **argv, pearl_config_t *config) {
                 exit(0);
                 break; // Will not reach here.
             } else if (strcmp(argv[i], "--version") == 0) {
-                printf("%s v%s - %s on %s\n", "Pearl", PEARL_VERSION, get_platform(), get_architecture());
+                printf("Pearl Bootstrap Compiler\n");
+                printf("Version:      %s\n", PEARL_VERSION);
+                printf("Target:       %s\n", get_platform());
+                printf("Architecture: %s\n", get_architecture());
+                if (pearl_verbosity_level >= LOG_INFO) {
+                    pearl_log(LOG_INFO, "Emitter configuration:");
+                    switch(config->backend) {
+                        case BACKEND_LLVM:
+                            pearl_log(LOG_INFO, "  Backend: LLVM IR");
+                            break;
+                        case BACKEND_PIRE:
+                            pearl_log(LOG_INFO, "  Backend: PIRE");
+                            break;
+                        default:
+                            pearl_log(LOG_INFO, "  Backend: Unknown");
+                    }
+                }
+                printf("Backend:      %s\n", config->backend == BACKEND_LLVM ? "LLVM" : "PIRE");
+
                 exit(0);
                 break; // Will not reach here.
             } else if (strcmp(argv[i], "--output") == 0) {
-                if (i + 1 < argc) {
+                if (i + 1 < argc && argv[i + 1][0] != '-') {
                     config->output_file = argv[i + 1];
                     i++; // Skip next argument as it's the output file
                 } else {
@@ -90,7 +110,7 @@ void parse_args(int argc, char **argv, pearl_config_t *config) {
                     exit(1);
                 }
             } else if (strcmp(argv[i], "--backend") == 0) {
-                if (i + 1 < argc) {
+                if (i + 1 < argc && argv[i + 1][0] != '-') {
                     if (strcmp(argv[i + 1], "llvm") == 0) {
                         config->backend = BACKEND_LLVM;
                     } else if (strcmp(argv[i + 1], "pire") == 0) {

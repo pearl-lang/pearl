@@ -2,6 +2,7 @@
 #include "platform.h"
 #include "pearl.h"
 #include "cli.h"
+#include "log.h"
 
 int main(int argc, char **argv) {
     pearl_config_t config = {
@@ -12,7 +13,9 @@ int main(int argc, char **argv) {
 
     parse_args(argc, argv, &config);
 
-    printf("Output File: %s\n", config.output_file ? config.output_file : "Not specified");
+    if(pearl_verbosity_level >= PEARL_VERBOSITY_INFO) {
+        pearl_log(LOG_INFO, msg_heap("Output File: %s", config.output_file ? config.output_file : "Not specified"));
+    }
 
     return 0;
 }

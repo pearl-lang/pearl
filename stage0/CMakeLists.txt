@@ -6,5 +6,5 @@ else()
     add_compile_options(-Wall -Wextra -O2)
 endif()
 
-add_executable(pearl ${SOURCES})
-target_include_directories(pearl PRIVATE include)
+add_executable(stage0 ${SOURCES})
+target_include_directories(stage0 PRIVATE include)

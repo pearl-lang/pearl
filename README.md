@@ -23,29 +23,17 @@ cd "pearl"
 ```
 
 ### Let's compile the compiler
-```sh
-chmod u+x "scripts/cmake.sh"
-./scripts/cmake.sh . && cd "build"
-make
-```
-
-or if you want to make it manually like a man.
 
 #### For Linux systems
 ```sh
-[ ! -d "build" ] && mkdir "build"
-cd "build"
-cmake ..
-make
+cmake -B build
+cmake --build build
 ```
 
 #### For Windows
 ```ps1
-if (-Not (Test-Path "build")) { New-Item -ItemType Directory -Name "build" }
-Set-Location "build"
-& "C:\Program Files\Microsoft Visual Studio\18\Community\Common7\Tools\Launch-VsDevShell.ps1"
-cmake -G "Ninja" ..
-ninja
+cmake -B build -G "Visual Studio 18 2022" # or you can prefer whatever you use, for exp: -G "Ninja"
+cmake --build build
 ```
 
 # Contributing
