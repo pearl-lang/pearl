@@ -15,3 +15,6 @@ jobs:
 
       - name: Build Project
         uses: threeal/cmake-action@v2.1.0
+
+      - name: Test Project
+        uses: threeal/ctest-action@v1.1.0
