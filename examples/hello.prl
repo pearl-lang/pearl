@@ -4,11 +4,11 @@ object main
 
 #attach[XDP]
 ebpf fun none() {
-	set n: s8 = 0
+	define n: s8 = 0
 }
 
 fun main() {
-	set hello: String = "Hello from pearl"
+	define hello: String = "Hello from pearl"
 	echo("%s", hello)
 }
 
