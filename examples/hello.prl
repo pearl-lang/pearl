@@ -1,0 +1,18 @@
+object main
+
+// Single comment line
+
+#attach[XDP]
+ebpf fun none() {
+	set n: s8 = 0
+}
+
+fun main() {
+	set hello: String = "Hello from pearl"
+
+	echo("%s", hello)
+}
+
+/* 
+   Multiple comment line
+*/

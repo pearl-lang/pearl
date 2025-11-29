@@ -3,7 +3,7 @@ on:
   push:
 jobs:
   build-project:
-    name: Build Project
+    name: Build and Test Project
     runs-on: ubuntu-24.04
     steps:
       - name: Checkout Project
