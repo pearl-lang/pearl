@@ -13,7 +13,8 @@
 }
 
 @test "Verbosity '-vvv' which is info level" {
-    run "$PEARL_BIN" -vvv hello
+    run "$PEARL_BIN" -vvv
     [ "$status" -eq 0 ]
-    [[ "$output" == *"(INFO): Positional argument: hello"* ]]
+    [[ "$output" == *"(INFO): Parsed 0 source files."* ]]
+    [[ "$output" == *"(INFO): Output File: Not specified"* ]]
 }
