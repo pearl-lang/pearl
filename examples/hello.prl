@@ -9,7 +9,6 @@ ebpf fun none() {
 
 fun main() {
 	set hello: String = "Hello from pearl"
-
 	echo("%s", hello)
 }
 
