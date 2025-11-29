@@ -4,7 +4,6 @@
 #include "cli.h"
 #include "log.h"
 #include "vector.h"
-#include "utils.h"
 
 int main(int argc, char **argv) {
     // Source files vector

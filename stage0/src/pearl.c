@@ -9,7 +9,7 @@ void help() {
     printf("Options:\n");
     printf("  -h, --help                Show this help message\n");
     printf("  -V, --version             Show version information\n");
-    printf("  -o, --output  <file>      Specify output file name\n");
+    printf("  -o, --output  <path>      Specify output file name\n");
     printf("  -b, --backend <backend>   Specify backend (llvm or pire)\n");
     printf("  -v                        Increase verbosity level (can be used multiple times)\n");
     printf("https://github.com/pearl-lang - 2025\n");
