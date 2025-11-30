@@ -30,8 +30,8 @@ system_info_t get_system_info() {
     system_info_t info;
 
     // Detect platform
-    if (PLATFORM_MSNT) {
-        info.platform = PLATFORM_MSNT;
+    if (PLATFORM_WINDOWS) {
+        info.platform = PLATFORM_WINDOWS;
     } else if (PLATFORM_LINUX) {
         info.platform = PLATFORM_LINUX;
     } else if (PLATFORM_DARWIN) {

@@ -4,7 +4,7 @@
 #include <stdio.h>
 
 typedef enum {
-    PLATFORM_MSNT,
+    PLATFORM_WINDOWS,
     PLATFORM_LINUX,
     PLATFORM_DARWIN,
     PLATFORM_UNKNOWN
