@@ -26,7 +26,7 @@ typedef struct {
 // Detect current platform
 #if defined(_WIN32) || defined(_WIN64)
 #include <windows.h>
-    #define PLATFORM_MSNT 1
+    #define PLATFORM_WINDOWS 1
 #elif defined(__linux__)
     #include <unistd.h>
     #define PLATFORM_LINUX 1

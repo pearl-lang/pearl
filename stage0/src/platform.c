@@ -1,8 +1,8 @@
 #include "platform.h"
 
 char* get_platform() {
-    if (PLATFORM_MSNT) {
-        return "MSNT";
+    if (PLATFORM_WINDOWS) {
+        return "Windows";
     } else if (PLATFORM_LINUX) {
         return "Linux";
     } else if (PLATFORM_DARWIN) {

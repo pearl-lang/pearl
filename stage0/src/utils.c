@@ -1,7 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "platform.h"
+#include "pearl.h"
 #include "utils.h"
+#include "log.h"
 
 void die(const char *message) {
     fprintf(stderr, "Fatal error: %s\n", message);
@@ -11,6 +13,8 @@ void die(const char *message) {
 #if defined(PLATFORM_WINDOWS)
 #include <windows.h>
 char* resolve_path(const char* path) {
+    if (pearl_verbosity_level >= PEARL_VERBOSITY_DEBUG)
+        pearl_log(LOG_INFO, msg_heap("Called Windows(MS-NT), path resolver.."));
     DWORD attrs = GetFileAttributesA(path);
     if (attrs == INVALID_FILE_ATTRIBUTES) {
         return NULL;
@@ -51,6 +55,8 @@ char* resolve_path(const char* path) {
 #include <unistd.h>
 #include <limits.h>
 char* resolve_path(const char* path) {
+    if (pearl_verbosity_level >= PEARL_VERBOSITY_DEBUG)
+        pearl_log(LOG_INFO, msg_heap("Called Unix*, POSIX compliant path resolver.."));
     char* out = malloc(PATH_MAX);
     if (!out) return NULL;
 
@@ -65,6 +71,8 @@ char* resolve_path(const char* path) {
 // you can implement resolve_path here like up(PLATFORM_LINUX and PLATFORM_DARWIN).
 char* resolve_path(const char* path) {
     // Unsupported platform
+    if (pearl_verbosity_level >= PEARL_VERBOSITY_DEBUG)
+        pearl_log(LOG_ERROR, msg_heap("Called an function for a unsupported operation system family, if you're think this is mistake\n or you want to add your operating system family please open an issue: https://github.com/pearl-lang/pearl/issues"));
     return NULL;
 }
 #endif
