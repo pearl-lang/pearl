@@ -11,4 +11,6 @@ jobs:
     steps:
       - uses: actions/checkout@v5
       - name: Run Clippy
-        run: cargo clippy --all-targets --all-features
+        run: |
+            cd stage0 
+            cargo clippy --all-targets --all-features
