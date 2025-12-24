@@ -1,0 +1,23 @@
+[package]
+name = "stage0"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+
+[profile.dev]
+opt-level = 0
+codegen-units = 256
+debug = true
+incremental = true
+panic = "abort"
+
+[profile.release]
+opt-level = 2
+lto = false
+codegen-units = 1
+panic = "abort"
+strip = "symbols"
+debug = false
+incremental = false
+overflow-checks = true
