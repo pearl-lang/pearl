@@ -4,8 +4,8 @@
 
 # Getting started with pearl language
 
-## Manage pearl versions with [gece](https://github.com/pearl-lang/gece)
-Let's use gece to compile and run pearl programs easily, manage dependencies and pearl versions.
+## [Gece](https://github.com/pearl-lang/gece)
+Let's use "Gece" to compile and run pearl programs easily, manage dependencies and versions.
 
 ## Build from source
 
