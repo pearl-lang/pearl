@@ -1,6 +1,6 @@
 # The Holy Pearl Book
 
-<img width="1024" height="1024" alt="twi_eg_reading_pearl_book_2" src="https://github.com/user-attachments/assets/09900dc7-68c0-47db-be57-7645aa3d4438" />
+<img width="720" height="720" alt="twi_eg_reading_pearl_book_720" src="https://github.com/user-attachments/assets/259b24c1-7cb9-48e5-bd33-016b0c069e32" />
 
 Official pearl cookbook. For working with the pearl language the only base referance
 is this book.
