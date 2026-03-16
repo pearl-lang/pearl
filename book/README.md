@@ -6,7 +6,6 @@ Official pearl cookbook. For working with the pearl language the only base refer
 is this book.
 
 > [!NOTE]
-> this isn't required, you could compile your self or you can reach latest book from release side.
+> you could compile your self or you can reach latest book from release side.
 
 ## Compile the book
-
