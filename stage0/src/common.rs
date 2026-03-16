@@ -14,7 +14,7 @@ pub struct Info {
 pub fn pearl_info() -> Info {
 	let name: String = String::from("Pearl");
 
-	let version: String = String::from(format!("{}.{}.{}", MAJOR, MINOR, PATCH));
+	let version: String = format!("{}.{}.{}", MAJOR, MINOR, PATCH);
 	let base: String = String::from("https://github.com/pearl-lang/pearl");
 
 	Info {
