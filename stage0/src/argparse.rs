@@ -5,7 +5,7 @@ use std::vec::Vec;
 pub struct Args {
     pub operation: Operation,
     pub base: String,
-    pub options: Option<Vec<Opt>>,
+    pub options: Option<Vec<Opt>>
 }
 
 #[derive(Debug)]

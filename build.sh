@@ -11,7 +11,7 @@ export CWD="$(pwd)"
 
 # The classic, fatal func.
 die() {
-	echo "\033[0;31m${0##*/}: ERR: ${1}\033[0m"
+	printf "\033[0;31m %s: ERR: ${1}\033[0m" "${0##*/}"
 	exit 1
 }
 
