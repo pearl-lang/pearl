@@ -2,6 +2,12 @@
 
 ![image](https://raw.githubusercontent.com/pearl-lang/logo/refs/heads/main/pearl_logo.png)
 
+> [!TODO]:
+> - add scripts directory for release builds.
+> - add CI/CD pipelines for testing and releases.
+> - add more documentation and examples.
+> - add sha256sum generator script for release builds.
+
 # Getting started with pearl language
 
 ## [Gece](https://github.com/pearl-lang/gece)
