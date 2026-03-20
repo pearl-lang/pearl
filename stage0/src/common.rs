@@ -5,11 +5,13 @@ static MAJOR: u8 = 0;
 static MINOR: u8 = 1;
 static PATCH: u8 = 0;
 
+#[derive(PartialEq)]
 pub enum Operation {
-    Error,
+    Help,
     Version,
     Compile,
     Unknown,
+    Error,
     None,
 }
 
@@ -48,4 +50,23 @@ pub fn get_time() -> String {
 pub fn die(msg: &str) -> ! {
     eprintln!("[{}:{} {}] {}", file!(), "die", get_time(), msg);
     exit(1);
+}
+
+fn basename(path: &str) -> &str {
+    let bytes = path.as_bytes();
+    let mut i = bytes.len();
+
+    while i > 0 {
+        i -= 1;
+        if bytes[i] == b'/' || bytes[i] == b'\\' {
+            return &path[i + 1..];
+        }
+    }
+
+    path
+}
+
+pub fn help(base: &str) {
+    println!("{}\n    --help\t\tShow this help message\n    --version\t\tShow version information\n\nFiles:\tFILES\t\tThe files to compile",
+    format_args!("Usage: {} [OPTIONS] [FILES]\n\nOptions:", basename(base)));
 }
