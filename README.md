@@ -2,7 +2,7 @@
 
 ![image](https://raw.githubusercontent.com/pearl-lang/logo/refs/heads/main/pearl_logo.png)
 
-> [!INFO]:
+> [!NOTE]:
 > - add scripts directory for release builds.
 > - add CI/CD pipelines for testing and releases.
 > - add more documentation and examples.
