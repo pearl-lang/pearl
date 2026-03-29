@@ -36,10 +36,10 @@ section() {
 section "File integrity check(without checksum)"
 must_fail=false
 for ent in	"stage0:req" \
-			"stage0/src:req" \
+			"stage0/include:req" \
 			"stage0/build.sh:req" \
 			"stage0/build.ps1:opt" \
-			"stage0/src/main.c:req" \
+			"stage0/main.c:req" \
 			"stage0/tests:opt" ; do
 	printf "%s" "${ent%%:*}"
 	if [ -e "${ent%%:*}" ] ; then
