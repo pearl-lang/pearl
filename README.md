@@ -10,15 +10,13 @@
 
 # Getting started with pearl language
 
-## [Gece](https://github.com/pearl-lang/gece)
-Let's use "Gece" to compile and run pearl programs easily, manage dependencies and versions.
-
 ## Build from source
 
 Get the source.
 ```sh
 git clone "https://github.com/pearl-lang/pearl.git"
 cd "pearl"
+./build.sh
 ```
 
 ### Let's compile the compiler
