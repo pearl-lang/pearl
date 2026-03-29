@@ -1,5 +1,34 @@
 #include "platform.h"
 
+static char **g_runtime_envp;
+
+char **platform_get_envp(void) {
+	return g_runtime_envp;
+}
+
+char *platform_getenv(const char *key) {
+	char **envp = g_runtime_envp;
+	if (key == (const char *)0 || envp == (char **)0) {
+		return (char *)0;
+	}
+
+	for (; *envp != (char *)0; ++envp) {
+		const char *k = key;
+		char *e = *envp;
+
+		while (*k != '\0' && *e == *k) {
+			++k;
+			++e;
+		}
+
+		if (*k == '\0' && *e == '=') {
+			return e + 1;
+		}
+	}
+
+	return (char *)0;
+}
+
 #if defined(_WIN32)
 
 __declspec(dllimport) char *__stdcall GetCommandLineA(void);
@@ -143,6 +172,7 @@ void platform_initialize_from_stack(void *stack_top, struct platform_startup *ou
 	out->argc = platform_parse_cmdline(g_cmdline_copy, g_argv, (int)(sizeof(g_argv) / sizeof(g_argv[0])));
 	out->argv = g_argv;
 	out->envp = platform_build_envp();
+	g_runtime_envp = out->envp;
 }
 
 _Noreturn void platform_exit(int code) {
@@ -160,6 +190,7 @@ void platform_initialize_from_stack(void *stack_top, struct platform_startup *ou
 	out->argc = (int)argc;
 	out->argv = argv;
 	out->envp = argv + argc + 1;
+	g_runtime_envp = out->envp;
 }
 
 _Noreturn void platform_exit(int code) {
