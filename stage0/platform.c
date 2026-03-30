@@ -1,4 +1,4 @@
-#include "platform.h"
+#include <platform.h>
 
 static char **g_runtime_envp;
 
