@@ -5,14 +5,15 @@
 
 set -e
 
-export CC="gcc" OPTS="-Wall -Wextra -Werror -nostdlib -O2" SRC="*.c" OUT="pearlc"
+export PLATFORM="linux" ARCH="x86-64"
+export CC="gcc" OPTS="-Wall -Wextra -Werror -nostdlib -O2" SRC="runtime/${PLATFORM}/${ARCH}/* runtime/common/* *.c" OUT="pearlc"
 
 die() {
 	printf "\033[0;31m%s: ERR: ${1}\033[0m\n" "${0##*/}"
 	exit 1
 }
 
-while getopts ":c:f:o:Crh" opts ; do
+while getopts ":c:f:o:p:a:Crh" opts ; do
 	case "${opts}" in
 		"c")
 			if [ -n "${OPTARG}" ] ; then
@@ -29,6 +30,18 @@ while getopts ":c:f:o:Crh" opts ; do
 				OUT="${OPTARG}"
 			fi
 		;;
+		"p")
+			if [ -n "${OPTARG}" ] ; then
+				PLATFORM="${OPTARG}"
+				SRC="runtime/${PLATFORM}/${ARCH}/* runtime/common/* *.c"
+			fi
+		;;
+		"a")
+			if [ -n "${OPTARG}" ] ; then
+				ARCH="${OPTARG}"
+				SRC="runtime/${PLATFORM}/${ARCH}/* runtime/common/* *.c"
+			fi
+		;;
 		"C")
 			rm -r "${OUT}" ./*.o
 			exit 0
@@ -39,16 +52,18 @@ while getopts ":c:f:o:Crh" opts ; do
 		"h")
 			printf "Usage: %s [options] [source files]\n\n" "${0##*/}"
 			printf "Options:\n"
-			printf "  -c <compiler>   Specify the C compiler to use (default: gcc)\n"
+			printf "  -c <compiler>  Specify the C compiler to use (default: gcc)\n"
 			printf "  -f <flags>     Additional flags to pass to the C compiler\n"
 			printf "  -o <output>    Specify the output executable name (default: pearlc)\n"
+			printf "  -p <platform>  Specify the platform (default: linux)\n"
+			printf "  -a <arch>      Specify the architecture (default: x86-64)\n"
 			printf "  -C             Clean build artifacts (remove output and object files)\n"
 			printf "  -r             Build with release flags\n"
 			printf "  -h             Show this help message and exit\n"
 			exit 0
 		;;
 		?)  
-			printf "Usage: %s: [-c value] [-f value] [-o value] [-C] args\n" "${0##*/}"
+			printf "Usage: %s: [-c value] [-f value] [-o value] [-p value] [-a value] [-C] args\n" "${0##*/}"
 			exit 2
 		;;
 	esac
