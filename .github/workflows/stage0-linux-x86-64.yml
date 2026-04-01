@@ -1,0 +1,63 @@
+name: stage0 linux x86-64
+
+on:
+  push:
+    paths:
+      - 'stage0/**'
+      - '.github/workflows/stage0-linux-x86-64.yml'
+  pull_request:
+    paths:
+      - 'stage0/**'
+      - '.github/workflows/stage0-linux-x86-64.yml'
+  release:
+    types: [published]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    env:
+      PLATFORM: linux
+      ARCH: x86-64
+      STAGE: bootstrap
+      EXT: bin
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build stage0 (linux x86-64)
+        run: |
+          OUT="pearlc_${PLATFORM}-${ARCH}_${STAGE}.${EXT}"
+          cd stage0
+          chmod +x build.sh
+          ./build.sh -p "${PLATFORM}" -a "${ARCH}" -o "${OUT}"
+
+      - name: Smoke test binary
+        run: |
+          OUT="pearlc_${PLATFORM}-${ARCH}_${STAGE}.${EXT}"
+          cd stage0
+          test -x "./${OUT}"
+          "./${OUT}"
+
+      - name: Generate SHA256 checksum
+        if: github.event_name == 'release'
+        run: |
+          OUT="pearlc_${PLATFORM}-${ARCH}_${STAGE}.${EXT}"
+          cd stage0
+          sha256sum "${OUT}" > "${OUT}_sha256.txt"
+
+      - name: Verify SHA256 checksum
+        if: github.event_name == 'release'
+        run: |
+          OUT="pearlc_${PLATFORM}-${ARCH}_${STAGE}.${EXT}"
+          cd stage0
+          sha256sum -c "${OUT}_sha256.txt"
+
+      - name: Upload bootstrap binary to release
+        if: github.event_name == 'release'
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            stage0/pearlc_${{ env.PLATFORM }}-${{ env.ARCH }}_${{ env.STAGE }}.${{ env.EXT }}
+            stage0/pearlc_${{ env.PLATFORM }}-${{ env.ARCH }}_${{ env.STAGE }}.${{ env.EXT }}_sha256.txt

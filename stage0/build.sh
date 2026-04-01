@@ -6,7 +6,22 @@
 set -e
 
 export PLATFORM="linux" ARCH="x86-64"
-export CC="gcc" OPTS="-Wall -Wextra -Werror -nostdlib -O2" SRC="runtime/${PLATFORM}/${ARCH}/* runtime/common/* *.c" OUT="pearlc"
+export CC="gcc" OPTS="-Wall -Wextra -Werror -nostdlib -O2" SRC="runtime/${PLATFORM}/${ARCH}/* runtime/common/* *.c"
+
+output_ext() {
+	case "$1" in
+		"windows")
+			printf "exe"
+		;;
+		*)
+			printf "bin"
+		;;
+	esac
+}
+
+EXT="$(output_ext "${PLATFORM}")"
+OUT="pearlc_${PLATFORM}-${ARCH}_bootstrap.${EXT}"
+OUT_SET="0"
 
 die() {
 	printf "\033[0;31m%s: ERR: ${1}\033[0m\n" "${0##*/}"
@@ -28,6 +43,7 @@ while getopts ":c:f:o:p:a:Crh" opts ; do
 		"o")
 			if [ -n "${OPTARG}" ] ; then
 				OUT="${OPTARG}"
+				OUT_SET="1"
 			fi
 		;;
 		"p")
@@ -54,9 +70,10 @@ while getopts ":c:f:o:p:a:Crh" opts ; do
 			printf "Options:\n"
 			printf "  -c <compiler>  Specify the C compiler to use (default: gcc)\n"
 			printf "  -f <flags>     Additional flags to pass to the C compiler\n"
-			printf "  -o <output>    Specify the output executable name (default: pearlc)\n"
+			printf "  -o <output>    Specify the output executable name\n"
 			printf "  -p <platform>  Specify the platform (default: linux)\n"
 			printf "  -a <arch>      Specify the architecture (default: x86-64)\n"
+			printf "                 default output: pearlc_<platform>-<arch>_bootstrap.<ext>\n"
 			printf "  -C             Clean build artifacts (remove output and object files)\n"
 			printf "  -r             Build with release flags\n"
 			printf "  -h             Show this help message and exit\n"
@@ -70,6 +87,11 @@ while getopts ":c:f:o:p:a:Crh" opts ; do
 done
 
 shift $(( OPTIND - 1 ))
+
+EXT="$(output_ext "${PLATFORM}")"
+if [ "${OUT_SET}" = "0" ] ; then
+	OUT="pearlc_${PLATFORM}-${ARCH}_bootstrap.${EXT}"
+fi
 
 if [ "$#" -gt 0 ] ; then
 	SRC="$SRC $*"
