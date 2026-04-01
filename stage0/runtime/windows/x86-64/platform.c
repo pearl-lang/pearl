@@ -1,4 +1,7 @@
 #include <platform.h>
+<<<<<<< HEAD:stage0/runtime/windows/x86-64/platform.c
+#include <winh.h>
+=======
 
 static char **g_runtime_envp;
 
@@ -35,6 +38,7 @@ __declspec(dllimport) char *__stdcall GetCommandLineA(void);
 __declspec(dllimport) char *__stdcall GetEnvironmentStringsA(void);
 __declspec(dllimport) int __stdcall FreeEnvironmentStringsA(char *env);
 __declspec(dllimport) void __stdcall ExitProcess(unsigned int code);
+>>>>>>> main:stage0/platform.c
 
 static char g_cmdline_copy[32768];
 static char *g_argv[256];
@@ -129,8 +133,8 @@ static char **platform_build_envp(void) {
 		return g_envp;
 	}
 
+	g_env_copy[i] = src[i];
 	while (i + 1 < (int)sizeof(g_env_copy)) {
-		g_env_copy[i] = src[i];
 		if (src[i] == '\0' && src[i + 1] == '\0') {
 			g_env_copy[i + 1] = '\0';
 			break;
@@ -172,51 +176,5 @@ void platform_initialize_from_stack(void *stack_top, struct platform_startup *ou
 	out->argc = platform_parse_cmdline(g_cmdline_copy, g_argv, (int)(sizeof(g_argv) / sizeof(g_argv[0])));
 	out->argv = g_argv;
 	out->envp = platform_build_envp();
-	g_runtime_envp = out->envp;
+	platform_set_envp(out->envp);
 }
-
-_Noreturn void platform_exit(int code) {
-	ExitProcess((unsigned int)code);
-	for (;;) {
-	}
-}
-
-#else
-
-void platform_initialize_from_stack(void *stack_top, struct platform_startup *out) {
-	long argc = *(long *)stack_top;
-	char **argv = (char **)((long *)stack_top + 1);
-
-	out->argc = (int)argc;
-	out->argv = argv;
-	out->envp = argv + argc + 1;
-	g_runtime_envp = out->envp;
-}
-
-_Noreturn void platform_exit(int code) {
-#if defined(__x86_64__) && defined(__linux__)
-	__asm__ volatile(
-		"mov %0, %%rdi\n\t"
-		"mov $60, %%rax\n\t"
-		"syscall"
-		:
-		: "r"((long)code)
-		: "rax", "rdi", "rcx", "r11", "memory");
-#elif defined(__x86_64__) && defined(__APPLE__)
-	__asm__ volatile(
-		"mov %0, %%rdi\n\t"
-		"mov $0x2000001, %%rax\n\t"
-		"syscall"
-		:
-		: "r"((long)code)
-		: "rax", "rdi", "rcx", "r11", "memory");
-#else
-	(void)code;
-	for (;;) {
-	}
-#endif
-
-	__builtin_unreachable();
-}
-
-#endif
