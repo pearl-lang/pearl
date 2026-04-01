@@ -66,8 +66,8 @@ if "${must_fail}" ; then die "required files or directories missing, please chec
 	echo "build: Stage0, bootstrap compiler.."
 	cd "stage0"
 	sh "build.sh"
-	if [ -f "pearl" ] ; then
-		if ! command "pearl" --version ; then
+	if [ -f "pearlc" ] ; then
+		if ! command "./pearlc" --version ; then
 			die "bootstrap compiler runtime error."
 		fi
 	else
