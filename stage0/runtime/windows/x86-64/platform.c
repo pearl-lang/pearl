@@ -1,11 +1,5 @@
 #include <platform.h>
-
-#if defined(_WIN32)
-
-__declspec(dllimport) char *__stdcall GetCommandLineA(void);
-__declspec(dllimport) char *__stdcall GetEnvironmentStringsA(void);
-__declspec(dllimport) int __stdcall FreeEnvironmentStringsA(char *env);
-__declspec(dllimport) void __stdcall ExitProcess(unsigned int code);
+#include <winh.h>
 
 static char g_cmdline_copy[32768];
 static char *g_argv[256];
@@ -143,13 +137,5 @@ void platform_initialize_from_stack(void *stack_top, struct platform_startup *ou
 	out->argc = platform_parse_cmdline(g_cmdline_copy, g_argv, (int)(sizeof(g_argv) / sizeof(g_argv[0])));
 	out->argv = g_argv;
 	out->envp = platform_build_envp();
-	g_runtime_envp = out->envp;
+	platform_set_envp(out->envp);
 }
-
-_Noreturn void sys_exit(int code) {
-	ExitProcess((unsigned int)code);
-	for (;;) {
-	}
-}
-
-#endif

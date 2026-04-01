@@ -1,3 +1,5 @@
+#include <platform.h>
+
 extern _Noreturn void runtime_entry(void *stack_top);
 
 void mainCRTStartup(void) {
