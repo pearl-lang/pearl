@@ -1,44 +1,5 @@
 #include <platform.h>
-<<<<<<< HEAD:stage0/runtime/windows/x86-64/platform.c
 #include <winh.h>
-=======
-
-static char **g_runtime_envp;
-
-char **platform_get_envp(void) {
-	return g_runtime_envp;
-}
-
-char *platform_getenv(const char *key) {
-	char **envp = g_runtime_envp;
-	if (key == (const char *)0 || envp == (char **)0) {
-		return (char *)0;
-	}
-
-	for (; *envp != (char *)0; ++envp) {
-		const char *k = key;
-		char *e = *envp;
-
-		while (*k != '\0' && *e == *k) {
-			++k;
-			++e;
-		}
-
-		if (*k == '\0' && *e == '=') {
-			return e + 1;
-		}
-	}
-
-	return (char *)0;
-}
-
-#if defined(_WIN32)
-
-__declspec(dllimport) char *__stdcall GetCommandLineA(void);
-__declspec(dllimport) char *__stdcall GetEnvironmentStringsA(void);
-__declspec(dllimport) int __stdcall FreeEnvironmentStringsA(char *env);
-__declspec(dllimport) void __stdcall ExitProcess(unsigned int code);
->>>>>>> main:stage0/platform.c
 
 static char g_cmdline_copy[32768];
 static char *g_argv[256];
