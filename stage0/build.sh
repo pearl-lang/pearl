@@ -101,7 +101,7 @@ ${CC} ${OPTS} -Iinclude -o "${OUT}" ${SRC}
 
 if [ -f "${OUT}" ] ; then
 	echo "---- Build successful! ----"
-	echo "the compiler is available at ./${OUT}"
+	echo "the compiler is available, named as ${OUT}"
 else
 	die "failed to build the compiler, check the error messages above for more details."
 fi
