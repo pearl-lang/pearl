@@ -1,11 +1,7 @@
-# The Holy Pearl Book
+# Pearl Book
 
-<img width="720" height="720" alt="twi_eg_reading_pearl_book_720" src="https://github.com/user-attachments/assets/259b24c1-7cb9-48e5-bd33-016b0c069e32" />
+Pearl Cook Book
 
-Official pearl cookbook. For working with the pearl language the only base referance
-is this book.
+<img width="749" height="525" alt="twi_reading_pearl_book1" src="https://github.com/user-attachments/assets/15c33913-0c8d-4d71-bbdc-e35674813bc7" />
 
-> [!NOTE]
-> you could compile your self or you can reach latest book from release side.
-
-## Compile the book
+## Compiling the book
