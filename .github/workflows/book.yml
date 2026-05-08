@@ -1,0 +1,14 @@
+on:
+    release:
+        types: [published]
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v6
+
+            - name: Set up dependencies
+              run: |
+                sudo apt update
+                sudo apt install -y pandoc
